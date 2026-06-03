@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Sara</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Sara</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneClassName</key>
+					<string>UIWindowScene</string>
+					<key>UISceneConfigurationName</key>
+					<string>flutter</string>
+					<key>UISceneDelegateClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+					<key>UISceneStoryboardFile</key>
+					<string>Main</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<!-- S8-ATS-HARDENED App Transport Security (S8.2) — HTTPS-only for public
+	     domains. App Store review rejects arbitrary cleartext for production
+	     medical apps unless justified with a clinical-traffic exception.
+	     We allow cleartext only for on-prem clinic installations via
+	     NSExceptionDomains. Clinics deploying to their own LAN add their
+	     CIDR range by editing this plist before building the internal
+	     distribution; the App Store build keeps the default HTTPS-only. -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<!-- Local development only; stripped before the App Store archive. -->
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+	<!-- Privacy descriptions (required for App Store) -->
+	<key>NSFaceIDUsageDescription</key>
+	<string>Sara uses Face ID to securely access your clinical account</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Sara uses the camera to scan documents and capture clinical images</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Sara accesses photos to attach clinical images to patient records</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Sara uses the microphone for voice-to-text clinical note dictation</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Sara connects to your clinic's local EMR server</string>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<!-- ITSAppUsesNonExemptEncryption (S8.2) — Sara uses only HTTPS/TLS
+	     (standard encryption), which is exempt under US export
+	     regulations §740.17(b)(1). Declaring false here skips the
+	     annual ECCN self-classification upload on every App Store release. -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<!-- Phase 11B — background delivery of Firebase Cloud Messaging pushes.
+	     `remote-notification` lets the system wake the app (or a fresh
+	     isolate via firebase_messaging's top-level background handler)
+	     when a push arrives while Sara is backgrounded or terminated.
+	     `fetch` lets the periodic sync timer opportunistically poll the
+	     /mobile/sync delta when iOS schedules a background-app-refresh
+	     window. Both are required for the Phase 10 + 12 delivery
+	     pipeline to reach a clinician whose device is locked. -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+		<string>fetch</string>
+	</array>
+</dict>
+</plist>

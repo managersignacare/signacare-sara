@@ -1,0 +1,80 @@
+name: signacare_mobile
+description: Sara by Signacare — clinician mobile companion
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+  flutter: '>=3.16.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+
+  # Networking
+  dio: ^5.4.3
+
+  # State management
+  flutter_riverpod: ^2.4.9
+
+  # Navigation
+  go_router: ^13.2.4
+
+  # Secure storage for JWT tokens
+  flutter_secure_storage: ^9.2.2
+
+  # Plain key/value store for the Phase 11B sync cache —
+  # persisted JSON snapshot of the last /mobile/sync delta so
+  # the app can render instantly on cold-start before the first
+  # network round-trip completes. Separate from flutter_secure_storage
+  # because the sync cache is clinical (PHI-adjacent) but not a
+  # credential; separate from sqflite because the cache is
+  # append-over-previous-snapshot and doesn't need SQL indexes.
+  shared_preferences: ^2.3.4
+
+  # Local SQLite for offline cache & sync queue
+  sqflite: ^2.3.3+1
+  path_provider: ^2.1.3
+  path: ^1.9.0
+
+  # Utilities
+  intl: ^0.19.0
+  connectivity_plus: ^6.0.3
+
+  # UI
+  shimmer: ^3.0.0
+  flutter_svg: ^2.0.10+1
+
+  # Phase 11B — push notifications + in-app delta sync.
+  # firebase_core / firebase_messaging power background + foreground
+  # push from the Phase 10A notificationService + Phase 12B patient
+  # outreach dispatcher. flutter_local_notifications renders the
+  # OS notification when a push arrives while the app is foreground
+  # (firebase_messaging's default foreground behaviour is silent
+  # delivery). Both are optional at runtime — if the backend
+  # FCM_SERVICE_ACCOUNT_PATH isn't configured the mobile app still
+  # works (it just never receives a push; sync cadence falls back
+  # to the foreground poll loop).
+  firebase_core: ^3.6.0
+  firebase_messaging: ^15.1.3
+  flutter_local_notifications: ^18.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.2
+  flutter_launcher_icons: ^0.14.3
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/app-icon.png"
+  adaptive_icon_background: "#1565C0"
+  adaptive_icon_foreground: "assets/app-icon.png"
+  remove_alpha_ios: true
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/signacare-logo.svg

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Sara (clinician mobile) — network security config (S8.2).
+
+  Google Play rejects apps that allow cleartext traffic to arbitrary
+  domains. We lock the production app down to HTTPS-only for every
+  public domain, and permit cleartext ONLY to localhost so development
+  builds can still talk to a devserver on the same machine over USB
+  port-forwarding.
+
+  On-prem clinic deployments that need to reach a LAN IP range (e.g.
+  192.168.0.0/16) must build a clinic-specific variant of the app with
+  an additional <domain> entry for their range — the Play Store binary
+  stays HTTPS-only.
+
+  Reference: https://developer.android.com/training/articles/security-config
+-->
+<network-security-config>
+
+    <!-- Default: HTTPS-only for every public domain. -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system"/>
+        </trust-anchors>
+    </base-config>
+
+    <!-- Dev exception: localhost + loopback only.
+         Does NOT apply to the on-device IP (e.g. 192.168.*.*). -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">127.0.0.1</domain>
+        <domain includeSubdomains="true">10.0.2.2</domain> <!-- Android emulator host alias -->
+    </domain-config>
+
+</network-security-config>
